@@ -1,0 +1,39 @@
+nano .gitignore
+```
+
+**Contenu** :
+```
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# dbt
+target/
+dbt_packages/
+logs/
+.user.yml
+
+# Data (ne JAMAIS commit les données)
+data/*.csv
+*.parquet
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Credentials (CRITIQUE)
+.env
+*.json
+*credentials*
+profiles.yml
+
+# Temporary
+*.log
+*.tmp

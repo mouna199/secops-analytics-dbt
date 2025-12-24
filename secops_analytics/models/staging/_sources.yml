@@ -1,0 +1,58 @@
+version: 2
+sources: 
+  - name: raw_secops # Nom logique choisi pour la source de données, sera utilisé dans les modèles dbt
+    database: secops-analytics-platform # le projet ID sur BigQuery
+    schema: raw_production # le dataset sur BigQuery
+    description: "Données brutes des opérations de sécurité"
+    tables: 
+      - name: authentication_logs
+        description: "Evénements d'authentification des utilisateurs ( Sucess / Failure)"
+        columns: 
+          - name: event_id
+            description: "Identifiant unique de l'événement d'authentification"
+            tests:
+              - unique
+              - not_null
+          - name: user_id
+            description: "Identifiant de l'utilisateur"
+            tests:
+              - not_null
+          - name: timestamp
+            description: "Horodatage de l'événement"
+          - name: status
+            description: "Statut de l'authentification (success/failure)"
+            tests:
+              - accepted_values:
+                  values: ['success', 'failure']
+
+      - name: network_traffic_logs
+        description: "Logs de trafic réseau capturés par les dispositifs de sécurité"
+        columns: 
+          - name: event_id
+            description: "Identifiant unique de l'événement de trafic réseau"
+            tests:
+              - unique
+              - not_null
+          - name: source_ip
+            description: "Adresse IP source du trafic"
+            tests:
+              - not_null
+          - name: destination_ip  
+            description: "Adresse IP de destination du trafic"
+            tests:
+              - not_null
+          - name: timestamp
+            description: "Horodatage de l'événement"
+              
+      - name: security_incidents
+        description: "Incidents de sécurité détectés par les systèmes de surveillance"
+        columns: 
+          - name: incident_id
+            description: "Identifiant unique de l'incident de sécurité"
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: "Horodatage de l'incident"
+            tests:
+              - not_null
