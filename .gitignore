@@ -36,4 +36,5 @@ service_account*.json
 
 # Temporary
 *.log
-*.tmp
+*.tmp.env
+airflow.cfg
