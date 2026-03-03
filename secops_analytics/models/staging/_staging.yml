@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: stg_raw_secops__authentication_logs
+    description: "Événements d'authentification nettoyés et renommés"
+    columns:
+      - name: event_id
+        description: "Identifiant unique de l'événement"
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "Identifiant de l'utilisateur"
+        tests:
+          - not_null
+      - name: status
+        description: "Statut de l'authentification"
+        tests:
+          - accepted_values:
+              values: ['success', 'failure']
+
+  - name: stg_raw_secops__network_traffic_logs
+    description: ""
+
+  - name: stg_raw_secops__security_incidents
